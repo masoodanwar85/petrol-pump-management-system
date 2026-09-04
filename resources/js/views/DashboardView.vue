@@ -67,6 +67,36 @@ onMounted(load);
             </div>
 
             <section class="rounded-2xl bg-slate-900 p-4">
+                <h3 class="mb-3 font-semibold">By fuel type</h3>
+                <div
+                    v-for="row in data.sales_by_fuel_type"
+                    :key="row.fuel_type_id"
+                    class="mb-3 flex items-center justify-between border-b border-slate-800 pb-3 last:mb-0 last:border-0 last:pb-0"
+                >
+                    <div>
+                        <p class="font-medium">{{ row.fuel_type }}</p>
+                        <p class="text-sm text-slate-400">{{ liters(row.liters_sold) }} L</p>
+                    </div>
+                    <p class="font-semibold">{{ money(row.total_amount) }}</p>
+                </div>
+            </section>
+
+            <section class="rounded-2xl bg-slate-900 p-4">
+                <h3 class="mb-3 font-semibold">By nozzle</h3>
+                <div
+                    v-for="row in data.sales_by_nozzle"
+                    :key="row.nozzle_id"
+                    class="mb-3 flex items-center justify-between border-b border-slate-800 pb-3 last:mb-0 last:border-0 last:pb-0"
+                >
+                    <div>
+                        <p class="font-medium">{{ row.label }}</p>
+                        <p class="text-sm text-slate-400">{{ row.fuel_type }} · {{ liters(row.liters_sold) }} L</p>
+                    </div>
+                    <p class="font-semibold">{{ money(row.total_amount) }}</p>
+                </div>
+            </section>
+
+            <section class="rounded-2xl bg-slate-900 p-4">
                 <div class="mb-3 flex items-center justify-between">
                     <h3 class="font-semibold">Tank levels</h3>
                     <router-link class="text-sm text-amber-400" :to="{ name: 'tanks' }">Manage</router-link>

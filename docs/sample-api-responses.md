@@ -103,6 +103,37 @@ Authenticate with `Authorization: Bearer {token}` and `Accept: application/json`
     "date": "2026-09-05",
     "today_sales_amount": "27250.00",
     "today_liters": "100.000",
+    "sales_by_fuel_type": [
+      {
+        "fuel_type_id": 1,
+        "fuel_type": "Petrol",
+        "code": "petrol",
+        "liters_sold": "80.000",
+        "total_amount": "21800.00",
+        "profit": "1400.00"
+      },
+      {
+        "fuel_type_id": 2,
+        "fuel_type": "Diesel",
+        "code": "diesel",
+        "liters_sold": "20.000",
+        "total_amount": "5316.00",
+        "profit": "350.00"
+      }
+    ],
+    "sales_by_nozzle": [
+      {
+        "nozzle_id": 1,
+        "label": "Unit 1 Side A",
+        "pump": "Unit 1",
+        "side": "A",
+        "fuel_type_id": 1,
+        "fuel_type": "Petrol",
+        "liters_sold": "40.000",
+        "total_amount": "10900.00",
+        "profit": "700.00"
+      }
+    ],
     "today_product_sales_amount": "2200.00",
     "today_credit_sales_amount": "5450.00",
     "today_expenses": "500.00",
@@ -146,11 +177,25 @@ Authenticate with `Authorization: Bearer {token}` and `Accept: application/json`
       "profit_vs_purchases": "27250.00",
       "by_fuel_type": [
         {
+          "fuel_type_id": 1,
           "fuel_type": "Petrol",
-          "liters_sold": "100.000",
-          "total_amount": "27250.00",
-          "total_cost": "25500.00",
-          "profit": "1750.00"
+          "code": "petrol",
+          "liters_sold": "80.000",
+          "total_amount": "21800.00",
+          "profit": "1400.00"
+        }
+      ],
+      "by_nozzle": [
+        {
+          "nozzle_id": 1,
+          "label": "Unit 1 Side A",
+          "pump": "Unit 1",
+          "side": "A",
+          "fuel_type_id": 1,
+          "fuel_type": "Petrol",
+          "liters_sold": "40.000",
+          "total_amount": "10900.00",
+          "profit": "700.00"
         }
       ]
     },

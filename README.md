@@ -116,7 +116,7 @@ Open `http://localhost:8000/admin` and sign in with `admin@pump.test` / `passwor
 
 | Screen | What it calls |
 | --- | --- |
-| Home | `GET /dashboard` |
+| Home | `GET /dashboard` (station totals, combined by fuel type, isolated by nozzle) |
 | Shift | `POST /shifts/start`, `POST /shifts/{id}/end`, `GET /nozzles` |
 | Tanks | `GET /tanks`, `POST /tanks/{id}/transactions` |
 | Customers | `GET/POST /customers`, credit sales, payments |

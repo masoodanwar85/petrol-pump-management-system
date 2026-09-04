@@ -56,6 +56,8 @@ class DashboardService
             'date' => $from->toDateString(),
             'today_sales_amount' => $fuel['amount'],
             'today_liters' => $fuel['liters'],
+            'sales_by_fuel_type' => $this->sales->combinedByFuelTypeBetween($from, $to),
+            'sales_by_nozzle' => $this->sales->isolatedByNozzleBetween($from, $to),
             'today_product_sales_amount' => $products['amount'],
             'today_credit_sales_amount' => $creditSales,
             'today_expenses' => $expenses,

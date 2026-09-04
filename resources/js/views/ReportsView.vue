@@ -43,6 +43,22 @@ onMounted(load);
             <p>Credit sales: {{ money(report.credit_sales_amount) }}</p>
             <p>Expenses: {{ money(report.expenses) }}</p>
             <p class="text-emerald-400">Net profit: {{ money(report.net_profit) }}</p>
+
+            <div class="mt-4 border-t border-slate-800 pt-3">
+                <h4 class="mb-2 font-medium">Combined by fuel type</h4>
+                <div v-for="row in report.fuel.by_fuel_type" :key="row.fuel_type_id" class="flex justify-between py-1 text-sm">
+                    <span>{{ row.fuel_type }} · {{ liters(row.liters_sold) }} L</span>
+                    <span>{{ money(row.total_amount) }}</span>
+                </div>
+            </div>
+
+            <div class="mt-4 border-t border-slate-800 pt-3">
+                <h4 class="mb-2 font-medium">Isolated by nozzle</h4>
+                <div v-for="row in report.fuel.by_nozzle" :key="row.nozzle_id" class="flex justify-between py-1 text-sm">
+                    <span>{{ row.label }} · {{ liters(row.liters_sold) }} L</span>
+                    <span>{{ money(row.total_amount) }}</span>
+                </div>
+            </div>
         </section>
 
         <section v-if="profit" class="space-y-2 rounded-2xl bg-slate-900 p-4">

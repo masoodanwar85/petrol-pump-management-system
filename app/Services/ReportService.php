@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Sale;
 use App\Models\Shift;
 use App\Repositories\Contracts\CustomerTransactionRepositoryInterface;
 use App\Repositories\Contracts\ExpenseRepositoryInterface;
@@ -43,22 +42,6 @@ class ReportService
             ->orderBy('start_time')
             ->get();
 
-        $salesByFuel = Sale::query()
-            ->with('fuelType')
-            ->whereHas('shift', fn ($query) => $query->whereBetween('start_time', [$from, $to]))
-            ->get()
-            ->groupBy('fuel_type_id')
-            ->map(function ($rows) {
-                return [
-                    'fuel_type' => $rows->first()->fuelType?->name,
-                    'liters_sold' => Decimal::of((string) $rows->sum('liters_sold')),
-                    'total_amount' => Decimal::money((string) $rows->sum('total_amount')),
-                    'total_cost' => Decimal::money((string) $rows->sum('total_cost')),
-                    'profit' => Decimal::money((string) $rows->sum('profit')),
-                ];
-            })
-            ->values();
-
         return [
             'date' => $day->toDateString(),
             'fuel' => [
@@ -68,7 +51,8 @@ class ReportService
                 'profit' => $fuel['profit'],
                 'purchase_cost' => $purchaseCost,
                 'profit_vs_purchases' => Decimal::subtract($fuel['amount'], $purchaseCost, 2),
-                'by_fuel_type' => $salesByFuel,
+                'by_fuel_type' => $this->sales->combinedByFuelTypeBetween($from, $to),
+                'by_nozzle' => $this->sales->isolatedByNozzleBetween($from, $to),
             ],
             'products' => [
                 'sales_amount' => $products['amount'],

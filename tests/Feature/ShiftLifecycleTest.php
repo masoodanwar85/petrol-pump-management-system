@@ -85,6 +85,19 @@ class ShiftLifecycleTest extends TestCase
             number_format((float) $petrolTank->fresh()->current_stock, 3, '.', ''),
         );
         $this->assertNotSame($openingStock, $petrolTank->fresh()->current_stock);
+
+        $dashboard = $this->actingAs($user, 'sanctum')->getJson('/api/v1/dashboard');
+        $dashboard->assertOk();
+
+        $byFuel = collect($dashboard->json('data.sales_by_fuel_type'))->keyBy('code');
+        $this->assertSame('150.000', $byFuel['petrol']['liters_sold']);
+        $this->assertSame('60.000', $byFuel['diesel']['liters_sold']);
+
+        $byNozzle = $dashboard->json('data.sales_by_nozzle');
+        $this->assertCount(6, $byNozzle);
+        $this->assertTrue(collect($byNozzle)->contains(
+            fn (array $row) => $row['fuel_type'] === 'Petrol' && $row['liters_sold'] === '50.000',
+        ));
     }
 
     public function test_closed_shift_meter_readings_cannot_be_changed(): void
@@ -161,6 +174,8 @@ class ShiftLifecycleTest extends TestCase
                 'data' => [
                     'today_sales_amount',
                     'today_liters',
+                    'sales_by_fuel_type',
+                    'sales_by_nozzle',
                     'tank_levels',
                     'credit_outstanding',
                     'profit_today',

@@ -124,9 +124,10 @@ Authenticate with `Authorization: Bearer {token}` and `Accept: application/json`
     "sales_by_nozzle": [
       {
         "nozzle_id": 1,
-        "label": "Unit 1 Side A",
+        "label": "Unit 1 Nozzle 1",
         "pump": "Unit 1",
         "side": "A",
+        "side_label": "Nozzle 1",
         "fuel_type_id": 1,
         "fuel_type": "Petrol",
         "liters_sold": "40.000",
@@ -188,9 +189,10 @@ Authenticate with `Authorization: Bearer {token}` and `Accept: application/json`
       "by_nozzle": [
         {
           "nozzle_id": 1,
-          "label": "Unit 1 Side A",
+          "label": "Unit 1 Nozzle 1",
           "pump": "Unit 1",
           "side": "A",
+          "side_label": "Nozzle 1",
           "fuel_type_id": 1,
           "fuel_type": "Petrol",
           "liters_sold": "40.000",

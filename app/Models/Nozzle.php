@@ -44,10 +44,17 @@ class Nozzle extends Model
         return $this->hasMany(Sale::class);
     }
 
+    public function sideLabel(): string
+    {
+        return $this->side instanceof NozzleSide
+            ? $this->side->label()
+            : 'Nozzle '.$this->side;
+    }
+
     public function label(): string
     {
         $pumpName = $this->relationLoaded('pump') ? $this->pump?->name : 'Pump';
 
-        return trim(($pumpName ?? 'Pump').' Side '.$this->side->value);
+        return trim(($pumpName ?? 'Pump').' '.$this->sideLabel());
     }
 }

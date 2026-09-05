@@ -4,7 +4,7 @@ API-first backend for a single petrol pump. Built for mobile-first admin use (ph
 
 ## System overview
 
-The station has **3 pump units**. Each unit has **2 sides (A/B)**. Each side has **one nozzle** that dispenses petrol or diesel.
+The station has **3 pump units**. Each unit has **2 nozzles** (shown as Nozzle 1 and Nozzle 2). Each nozzle dispenses petrol or diesel.
 
 Sales are **not entered per vehicle**. An attendant:
 
@@ -250,7 +250,7 @@ Controllers stay thin. Form Requests validate input. Services own business rules
 | `tanks` | One tank per fuel type, plus `capacity`, `current_stock`, `low_level_threshold` |
 | `tank_transactions` | `purchase`, `wastage`, `adjustment` |
 | `pumps` | Physical units (3 seeded) |
-| `nozzles` | Side A/B + fuel type + last closing reading |
+| `nozzles` | Side A/B stored as Nozzle 1/2 on screen + fuel type + last closing reading |
 | `shifts` | `open` / `closed` |
 | `meter_readings` | Opening + closing per nozzle per shift |
 | `sales` | Derived at shift close; never keyed in by hand |

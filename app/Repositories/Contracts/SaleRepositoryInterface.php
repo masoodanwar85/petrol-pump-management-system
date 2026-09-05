@@ -25,7 +25,7 @@ interface SaleRepositoryInterface extends BaseRepositoryInterface
     /**
      * Isolated sales per nozzle.
      *
-     * @return array<int, array{nozzle_id: int, label: string, pump: string|null, side: string, fuel_type_id: int, fuel_type: string|null, liters_sold: string, total_amount: string, profit: string}>
+     * @return array<int, array{nozzle_id: int, label: string, pump: string|null, side: string, side_label: string, fuel_type_id: int, fuel_type: string|null, liters_sold: string, total_amount: string, profit: string}>
      */
     public function isolatedByNozzleBetween(Carbon $from, Carbon $to): array;
 }

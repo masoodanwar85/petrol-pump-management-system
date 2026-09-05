@@ -72,13 +72,13 @@ class SaleRepository extends BaseRepository implements SaleRepositoryInterface
             ->get()
             ->map(function (Nozzle $nozzle) use ($sales): array {
                 $rows = $sales->get($nozzle->id) ?? collect();
-                $side = $nozzle->side instanceof \BackedEnum ? $nozzle->side->value : (string) $nozzle->side;
 
                 return [
                     'nozzle_id' => $nozzle->id,
                     'label' => $nozzle->label(),
                     'pump' => $nozzle->pump?->name,
-                    'side' => $side,
+                    'side' => $nozzle->side instanceof \BackedEnum ? $nozzle->side->value : (string) $nozzle->side,
+                    'side_label' => $nozzle->sideLabel(),
                     'fuel_type_id' => $nozzle->fuel_type_id,
                     'fuel_type' => $nozzle->fuelType?->name,
                     'liters_sold' => Decimal::of((string) $rows->sum('liters_sold')),

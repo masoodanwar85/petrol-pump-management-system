@@ -11,15 +11,15 @@ const links = [
 
 <template>
     <div class="space-y-3">
-        <h2 class="hidden text-2xl font-semibold md:block">More</h2>
+        <h2 class="page-title">More</h2>
         <router-link
             v-for="link in links"
             :key="link.name"
             :to="{ name: link.name }"
-            class="block rounded-2xl bg-slate-900 p-4"
+            class="card block"
         >
-            <p class="font-semibold">{{ link.label }}</p>
-            <p class="text-sm text-slate-400">{{ link.hint }}</p>
+            <p class="font-semibold text-stone-900">{{ link.label }}</p>
+            <p class="muted">{{ link.hint }}</p>
         </router-link>
     </div>
 </template>

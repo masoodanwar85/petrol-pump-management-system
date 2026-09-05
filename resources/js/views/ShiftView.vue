@@ -109,21 +109,21 @@ onMounted(load);
 
 <template>
     <div class="space-y-4">
-        <h2 class="hidden text-2xl font-semibold md:block">Shift desk</h2>
-        <p v-if="error" class="rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
-        <p v-if="message" class="rounded-xl bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{{ message }}</p>
-        <p v-if="loading" class="text-slate-400">Loading nozzles…</p>
+        <h2 class="page-title">Shift desk</h2>
+        <p v-if="error" class="alert-error">{{ error }}</p>
+        <p v-if="message" class="alert-ok">{{ message }}</p>
+        <p v-if="loading" class="muted">Loading nozzles…</p>
 
-        <section v-else class="rounded-2xl bg-slate-900 p-4">
-            <p class="text-sm text-slate-400">
+        <section v-else class="card">
+            <p class="muted">
                 <span v-if="shift">Shift #{{ shift.id }} is {{ shift.status }}.</span>
                 <span v-else>No open shift. Enter opening readings for every nozzle.</span>
             </p>
 
             <div class="mt-4 space-y-3">
-                <article v-for="nozzle in nozzles" :key="nozzle.id" class="rounded-xl border border-slate-800 p-3">
+                <article v-for="nozzle in nozzles" :key="nozzle.id" class="rounded-xl bg-stone-50 p-3 ring-1 ring-stone-200">
                     <p class="font-medium">{{ nozzle.label }}</p>
-                    <p class="text-xs text-slate-400">{{ nozzle.fuel_type?.name || nozzle.fuel_type?.code }}</p>
+                    <p class="text-xs text-stone-500">{{ nozzle.fuel_type?.name || nozzle.fuel_type?.code }}</p>
                     <div class="mt-3 grid grid-cols-2 gap-3">
                         <div>
                             <label>Opening</label>
@@ -139,7 +139,7 @@ onMounted(load);
 
             <button
                 v-if="canStart"
-                class="mt-4 w-full rounded-xl bg-amber-500 py-3 font-semibold text-slate-950 disabled:opacity-60"
+                class="btn-primary mt-4 w-full"
                 :disabled="saving"
                 type="button"
                 @click="startShift"
@@ -148,7 +148,7 @@ onMounted(load);
             </button>
             <button
                 v-else-if="canEnd && shift.status === 'open'"
-                class="mt-4 w-full rounded-xl bg-emerald-500 py-3 font-semibold text-slate-950 disabled:opacity-60"
+                class="btn-success mt-4 w-full"
                 :disabled="saving"
                 type="button"
                 @click="endShift"
@@ -157,13 +157,13 @@ onMounted(load);
             </button>
         </section>
 
-        <section v-if="shift?.sales?.length" class="rounded-2xl bg-slate-900 p-4">
-            <h3 class="mb-3 font-semibold">Derived sales</h3>
-            <div v-for="sale in shift.sales" :key="sale.id" class="flex justify-between border-b border-slate-800 py-2 text-sm last:border-0">
+        <section v-if="shift?.sales?.length" class="card">
+            <h3 class="mb-3 font-semibold text-stone-900">Derived sales</h3>
+            <div v-for="sale in shift.sales" :key="sale.id" class="row flex justify-between py-2 text-sm last:border-0">
                 <span>{{ liters(sale.liters_sold) }} L</span>
                 <span>{{ money(sale.total_amount) }}</span>
             </div>
-            <p v-if="shift.expected_cash" class="mt-3 text-sm text-slate-300">
+            <p v-if="shift.expected_cash" class="mt-3 text-sm text-stone-600">
                 Expected cash: {{ money(shift.expected_cash) }}
             </p>
         </section>

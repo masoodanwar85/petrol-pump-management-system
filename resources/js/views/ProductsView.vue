@@ -104,15 +104,15 @@ onMounted(load);
 <template>
     <div class="space-y-4">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Products</h2>
-            <button class="text-sm text-amber-400" type="button" @click="showCreate = !showCreate">
+            <h2 class="text-xl font-semibold text-stone-900">Products</h2>
+            <button class="link-accent" type="button" @click="showCreate = !showCreate">
                 {{ showCreate ? 'Cancel' : 'Add' }}
             </button>
         </div>
-        <p v-if="error" class="rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
-        <p v-if="message" class="rounded-xl bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{{ message }}</p>
+        <p v-if="error" class="alert-error">{{ error }}</p>
+        <p v-if="message" class="alert-ok">{{ message }}</p>
 
-        <form v-if="showCreate" class="space-y-3 rounded-2xl bg-slate-900 p-4" @submit.prevent="createProduct">
+        <form v-if="showCreate" class="card space-y-3" @submit.prevent="createProduct">
             <div>
                 <label>Name</label>
                 <input v-model="createForm.name" required>
@@ -131,28 +131,28 @@ onMounted(load);
                     <input v-model="createForm.selling_price" type="number" step="0.01" required>
                 </div>
             </div>
-            <button class="w-full rounded-xl bg-amber-500 py-3 font-semibold text-slate-950" type="submit">Save product</button>
+            <button class="btn-primary w-full" type="submit">Save product</button>
         </form>
 
         <button
             v-for="product in products"
             :key="product.id"
-            class="w-full rounded-2xl bg-slate-900 p-4 text-left"
+            class="card w-full text-left"
             type="button"
             @click="selected = product"
         >
             <div class="flex justify-between">
                 <div>
-                    <p class="font-semibold">{{ product.name }}</p>
-                    <p class="text-sm text-slate-400">{{ product.sku }}</p>
+                    <p class="font-semibold text-stone-900">{{ product.name }}</p>
+                    <p class="muted">{{ product.sku }}</p>
                 </div>
                 <p class="text-sm">{{ liters(product.current_stock) }} {{ product.unit }}</p>
             </div>
-            <p class="mt-1 text-sm text-slate-400">{{ money(product.selling_price) }}</p>
+            <p class="mt-1 muted">{{ money(product.selling_price) }}</p>
         </button>
 
-        <section v-if="selected" class="space-y-3 rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <h3 class="font-semibold">{{ selected.name }}</h3>
+        <section v-if="selected" class="card space-y-3">
+            <h3 class="font-semibold text-stone-900">{{ selected.name }}</h3>
             <form class="space-y-3" @submit.prevent="addStock">
                 <div class="grid grid-cols-2 gap-3">
                     <div>
@@ -167,14 +167,14 @@ onMounted(load);
                         <input v-model="stockForm.quantity" type="number" step="0.001" required>
                     </div>
                 </div>
-                <button class="w-full rounded-xl bg-slate-800 py-3 font-semibold" type="submit">Add stock</button>
+                <button class="btn-secondary w-full" type="submit">Add stock</button>
             </form>
             <form class="space-y-3" @submit.prevent="sell">
                 <div>
                     <label>Sell qty</label>
                     <input v-model="saleForm.quantity" type="number" step="0.001" required>
                 </div>
-                <button class="w-full rounded-xl bg-emerald-500 py-3 font-semibold text-slate-950" type="submit">Record sale</button>
+                <button class="btn-success w-full" type="submit">Record sale</button>
             </form>
         </section>
     </div>

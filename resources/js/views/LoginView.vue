@@ -36,11 +36,18 @@ async function submit() {
 </script>
 
 <template>
-    <div class="flex min-h-dvh items-center justify-center px-4">
-        <form class="w-full max-w-sm rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-2xl" @submit.prevent="submit">
-            <p class="text-xs uppercase tracking-[0.2em] text-amber-400">Petrol pump</p>
-            <h1 class="mt-2 text-2xl font-semibold">Admin sign in</h1>
-            <p class="mt-1 text-sm text-slate-400">Uses the same Sanctum API as the mobile client.</p>
+    <div class="relative flex min-h-dvh items-center justify-center overflow-hidden px-4">
+        <div class="absolute inset-0 bg-teal-950" />
+        <div class="absolute -left-16 top-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
+        <div class="absolute -right-10 bottom-10 h-64 w-64 rounded-full bg-teal-400/20 blur-3xl" />
+
+        <form class="relative w-full max-w-sm rounded-3xl bg-white p-7 shadow-2xl" @submit.prevent="submit">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-800 text-lg font-bold text-amber-300">
+                P
+            </div>
+            <p class="mt-5 text-[11px] uppercase tracking-[0.22em] text-teal-700">Petrol pump</p>
+            <h1 class="mt-1 text-2xl font-semibold text-stone-900">Admin sign in</h1>
+            <p class="muted mt-1">Same Sanctum API the mobile client uses.</p>
 
             <div class="mt-6">
                 <label for="email">Email</label>
@@ -51,13 +58,9 @@ async function submit() {
                 <input id="password" v-model="password" type="password" autocomplete="current-password" required>
             </div>
 
-            <p v-if="error" class="mt-4 rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
+            <p v-if="error" class="alert-error mt-4">{{ error }}</p>
 
-            <button
-                class="mt-6 w-full rounded-xl bg-amber-500 py-3 text-base font-semibold text-slate-950 disabled:opacity-60"
-                :disabled="loading"
-                type="submit"
-            >
+            <button class="btn-primary mt-6 w-full" :disabled="loading" type="submit">
                 {{ loading ? 'Signing in…' : 'Sign in' }}
             </button>
         </form>

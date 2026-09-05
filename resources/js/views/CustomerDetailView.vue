@@ -73,17 +73,17 @@ onMounted(load);
 
 <template>
     <div class="space-y-4">
-        <router-link class="text-sm text-amber-400" :to="{ name: 'customers' }">← Customers</router-link>
-        <p v-if="error" class="rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
-        <p v-if="message" class="rounded-xl bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{{ message }}</p>
+        <router-link class="link-accent" :to="{ name: 'customers' }">← Customers</router-link>
+        <p v-if="error" class="alert-error">{{ error }}</p>
+        <p v-if="message" class="alert-ok">{{ message }}</p>
 
-        <section v-if="customer" class="rounded-2xl bg-slate-900 p-4">
-            <h2 class="text-xl font-semibold">{{ customer.name }}</h2>
-            <p class="text-sm text-slate-400">Outstanding {{ money(customer.outstanding) }} / limit {{ money(customer.credit_limit) }}</p>
+        <section v-if="customer" class="card">
+            <h2 class="text-xl font-semibold text-stone-900">{{ customer.name }}</h2>
+            <p class="muted">Outstanding {{ money(customer.outstanding) }} / limit {{ money(customer.credit_limit) }}</p>
         </section>
 
-        <form class="space-y-3 rounded-2xl bg-slate-900 p-4" @submit.prevent="recordSale">
-            <h3 class="font-semibold">Credit sale</h3>
+        <form class="card space-y-3" @submit.prevent="recordSale">
+            <h3 class="font-semibold text-stone-900">Credit sale</h3>
             <div>
                 <label>Fuel</label>
                 <select v-model="sale.fuel_type_id">
@@ -94,21 +94,21 @@ onMounted(load);
                 <label>Liters</label>
                 <input v-model="sale.liters" type="number" step="0.001" min="0.001" required>
             </div>
-            <button class="w-full rounded-xl bg-amber-500 py-3 font-semibold text-slate-950" type="submit">Post credit sale</button>
+            <button class="btn-primary w-full" type="submit">Post credit sale</button>
         </form>
 
-        <form class="space-y-3 rounded-2xl bg-slate-900 p-4" @submit.prevent="recordPayment">
-            <h3 class="font-semibold">Payment</h3>
+        <form class="card space-y-3" @submit.prevent="recordPayment">
+            <h3 class="font-semibold text-stone-900">Payment</h3>
             <div>
                 <label>Amount</label>
                 <input v-model="payment.amount" type="number" step="0.01" min="0.01" required>
             </div>
-            <button class="w-full rounded-xl bg-emerald-500 py-3 font-semibold text-slate-950" type="submit">Record payment</button>
+            <button class="btn-success w-full" type="submit">Record payment</button>
         </form>
 
-        <section class="rounded-2xl bg-slate-900 p-4">
-            <h3 class="mb-3 font-semibold">Ledger</h3>
-            <div v-for="row in ledger" :key="row.id" class="flex justify-between border-b border-slate-800 py-2 text-sm last:border-0">
+        <section class="card">
+            <h3 class="mb-3 font-semibold text-stone-900">Ledger</h3>
+            <div v-for="row in ledger" :key="row.id" class="row flex justify-between py-2 text-sm last:border-0">
                 <span>{{ day(row.date) }} · {{ enumLabel(row.type) }}</span>
                 <span>{{ money(row.amount) }}</span>
             </div>

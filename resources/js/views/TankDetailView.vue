@@ -65,17 +65,17 @@ onMounted(load);
 
 <template>
     <div class="space-y-4">
-        <router-link class="text-sm text-amber-400" :to="{ name: 'tanks' }">← Tanks</router-link>
-        <p v-if="error" class="rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
-        <p v-if="message" class="rounded-xl bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{{ message }}</p>
+        <router-link class="link-accent" :to="{ name: 'tanks' }">← Tanks</router-link>
+        <p v-if="error" class="alert-error">{{ error }}</p>
+        <p v-if="message" class="alert-ok">{{ message }}</p>
 
-        <section v-if="tank" class="rounded-2xl bg-slate-900 p-4">
-            <h2 class="text-xl font-semibold">{{ tank.name }}</h2>
-            <p class="text-sm text-slate-400">{{ liters(tank.current_stock) }} L on hand</p>
+        <section v-if="tank" class="card">
+            <h2 class="text-xl font-semibold text-stone-900">{{ tank.name }}</h2>
+            <p class="muted">{{ liters(tank.current_stock) }} L on hand</p>
         </section>
 
-        <form class="space-y-3 rounded-2xl bg-slate-900 p-4" @submit.prevent="submit">
-            <h3 class="font-semibold">Record movement</h3>
+        <form class="card space-y-3" @submit.prevent="submit">
+            <h3 class="font-semibold text-stone-900">Record movement</h3>
             <div>
                 <label>Type</label>
                 <select v-model="form.type">
@@ -100,19 +100,19 @@ onMounted(load);
                 <label>Reference</label>
                 <input v-model="form.reference" type="text">
             </div>
-            <button class="w-full rounded-xl bg-amber-500 py-3 font-semibold text-slate-950" :disabled="saving" type="submit">
+            <button class="btn-primary w-full" :disabled="saving" type="submit">
                 Save transaction
             </button>
         </form>
 
-        <section class="rounded-2xl bg-slate-900 p-4">
-            <h3 class="mb-3 font-semibold">History</h3>
-            <div v-for="row in transactions" :key="row.id" class="border-b border-slate-800 py-3 text-sm last:border-0">
+        <section class="card">
+            <h3 class="mb-3 font-semibold text-stone-900">History</h3>
+            <div v-for="row in transactions" :key="row.id" class="row py-3 text-sm last:border-0">
                 <div class="flex justify-between">
                     <span class="capitalize">{{ row.type }}</span>
                     <span>{{ liters(row.quantity_liters) }} L</span>
                 </div>
-                <p class="text-slate-400">{{ day(row.date) }} · {{ row.total_cost ? money(row.total_cost) : '—' }}</p>
+                <p class="muted">{{ day(row.date) }} · {{ row.total_cost ? money(row.total_cost) : '—' }}</p>
             </div>
         </section>
     </div>

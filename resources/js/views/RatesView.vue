@@ -57,12 +57,12 @@ onMounted(load);
 
 <template>
     <div class="space-y-4">
-        <h2 class="hidden text-2xl font-semibold md:block">Fuel rates</h2>
-        <p v-if="error" class="rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
-        <p v-if="message" class="rounded-xl bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{{ message }}</p>
+        <h2 class="page-title">Fuel rates</h2>
+        <p v-if="error" class="alert-error">{{ error }}</p>
+        <p v-if="message" class="alert-ok">{{ message }}</p>
 
-        <form class="space-y-3 rounded-2xl bg-slate-900 p-4" @submit.prevent="submit">
-            <h3 class="font-semibold">New rate</h3>
+        <form class="card space-y-3" @submit.prevent="submit">
+            <h3 class="font-semibold text-stone-900">New rate</h3>
             <div>
                 <label>Fuel type</label>
                 <select v-model="form.fuel_type_id" required>
@@ -77,16 +77,16 @@ onMounted(load);
                 <label>Effective from</label>
                 <input v-model="form.effective_from" type="datetime-local" required>
             </div>
-            <button class="w-full rounded-xl bg-amber-500 py-3 font-semibold text-slate-950" type="submit">Publish rate</button>
+            <button class="btn-primary w-full" type="submit">Publish rate</button>
         </form>
 
-        <section class="rounded-2xl bg-slate-900 p-4">
-            <article v-for="rate in rates" :key="rate.id" class="border-b border-slate-800 py-3 last:border-0">
+        <section class="card">
+            <article v-for="rate in rates" :key="rate.id" class="row py-3 last:border-0">
                 <div class="flex justify-between">
-                    <p class="font-medium">{{ rate.fuel_type?.name || `Fuel #${rate.fuel_type_id}` }}</p>
+                    <p class="font-medium text-stone-900">{{ rate.fuel_type?.name || `Fuel #${rate.fuel_type_id}` }}</p>
                     <p class="font-semibold">{{ money(rate.rate) }}</p>
                 </div>
-                <p class="text-sm text-slate-400">
+                <p class="muted">
                     {{ when(rate.effective_from) }}
                     <span v-if="rate.effective_to"> → {{ when(rate.effective_to) }}</span>
                     <span v-else> · open</span>

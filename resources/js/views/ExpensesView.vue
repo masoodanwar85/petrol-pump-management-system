@@ -46,10 +46,10 @@ onMounted(load);
 
 <template>
     <div class="space-y-4">
-        <h2 class="hidden text-2xl font-semibold md:block">Expenses</h2>
-        <p v-if="error" class="rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300">{{ error }}</p>
+        <h2 class="page-title">Expenses</h2>
+        <p v-if="error" class="alert-error">{{ error }}</p>
 
-        <form class="space-y-3 rounded-2xl bg-slate-900 p-4" @submit.prevent="submit">
+        <form class="card space-y-3" @submit.prevent="submit">
             <div>
                 <label>Title</label>
                 <input v-model="form.title" required>
@@ -72,15 +72,15 @@ onMounted(load);
                 <label>Date</label>
                 <input v-model="form.date" type="date" required>
             </div>
-            <button class="w-full rounded-xl bg-amber-500 py-3 font-semibold text-slate-950" type="submit">Add expense</button>
+            <button class="btn-primary w-full" type="submit">Add expense</button>
         </form>
 
-        <article v-for="expense in expenses" :key="expense.id" class="rounded-2xl bg-slate-900 p-4">
+        <article v-for="expense in expenses" :key="expense.id" class="card">
             <div class="flex justify-between">
-                <p class="font-medium">{{ expense.title }}</p>
-                <p>{{ money(expense.amount) }}</p>
+                <p class="font-medium text-stone-900">{{ expense.title }}</p>
+                <p class="font-medium">{{ money(expense.amount) }}</p>
             </div>
-            <p class="text-sm text-slate-400">{{ day(expense.date) }} · {{ enumLabel(expense.category) }}</p>
+            <p class="muted">{{ day(expense.date) }} · {{ enumLabel(expense.category) }}</p>
         </article>
     </div>
 </template>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-        <meta name="theme-color" content="#020617">
+        <meta name="theme-color" content="#134e4a">
         <title>{{ config('app.name') }} Admin</title>
         @fonts
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
